@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "monefy-tests"
+version = "0.1.0"
+description = ""
+authors = ["Marco2107 <marek.deidda@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+behave = "^1.2.6"
+allure-behave = "^2.13.5"
+requests = "^2.32.3"
+cffi = "^1.17.1"
+appium-python-client = "^2.8.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

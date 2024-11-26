@@ -1,1 +1,7 @@
+# IDE
 .DS_Store
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo

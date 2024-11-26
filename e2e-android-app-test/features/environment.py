@@ -3,6 +3,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.appiumby import AppiumBy
 from utils.helpers import skip_onboarding
+from pages.main import MainPage
+from pages.transaction import TransactionPage
 
 
 def before_scenario(context, scenario):
@@ -26,6 +28,8 @@ def before_scenario(context, scenario):
     # Initialize the driver
     try:
         context.driver = webdriver.Remote("http://127.0.0.1:4723", desired_caps)
+        context.main_page = MainPage(context.driver)
+        context.transaction_page = TransactionPage(context.driver)
         print("App launched successfully")
 
         #Wait for a key element to confirm the app is fully started

@@ -83,18 +83,27 @@ Running the Tests
 1. Prepare the Environment
     - Start an Android emulator or connect a physical device via USB.
     - Start the Appium server in a new terminal window:
-      appium
+    ```
+    appium
+    ```
 2. Execute the Tests
 - To run all tests:
+    ```
     behave
+    ```
 - To run a specific test:
+    ```
     behave features/transaction.feature
-
-## **Project Structure**
+    ```
+## **Troubleshooting**
 - ADB not working: Ensure adb is installed and added to your PATH:
+    ```
     adb --version
+    ```
 - Appium Doctor errors: Run the following to diagnose configuration issues:
+    ```
     appium-doctor --android
+    ```
 - Emulator not detected: Ensure the emulator is running and Android platform tools are properly configured.
 
 ## **Approach and Tech Stack**
@@ -113,6 +122,8 @@ The framework is built with a focus on simplicity, reusability, and scalability.
 **Poetry:** Facilitates clean dependency management and ensures consistent environments.
 
 **Page Object Model (POM):** Improves maintainability and test reliability by encapsulating UI interactions in dedicated classes.
+
+**Allure:** Simplifies the monitoring of automated tests by providing a clear overview of results, facilitates failure investigations with detailed insights, and enhances collaboration through interactive and accessible reports.
 
 These tools were chosen not only for their technical strengths but also for their popularity, strong community support, and availability of solid resources. This ensures efficient, scalable, and maintainable end-to-end testing for the Monefy Android application.
 

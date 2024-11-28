@@ -32,6 +32,17 @@ def extract_value(amount):
     """
     Extract the amount value to match the format 0.00
     """
+    match = re.search(r"\$\s?([\d.,]+)", amount)
+
+    return match.group(1) if match else None
+
+def format_amount(amount):
+    """
+    Format amount string
+    """
+    if '.' in amount:
+        return f"${amount}"
+    return f"${amount}.00"
 
     # Extract the numerical value A REFACTO
     extracted_value = re.search(r"\$\s?([\d.,]+)", amount)

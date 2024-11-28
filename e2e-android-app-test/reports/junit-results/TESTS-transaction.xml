@@ -1,0 +1,91 @@
+<testsuite name="transaction.transaction" tests="3" errors="1" failures="0" skipped="0" time="39.405138" timestamp="2024-11-28T17:42:21.381882" hostname="Marcos-Laptop.local"><testcase classname="transaction.transaction" name="The user should be able to add an income" status="failed" time="0"><error type="TimeoutException" message="HOOK-ERROR in before_scenario: TimeoutException: Message: &#10;Stacktrace:&#10;NoSuchElementError: An element could not be located on the page using the given search parameters.&#10;    at AndroidUiautomator2Driver.findElOrEls (/Users/marco/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-android-driver/lib/commands/find.ts:86:11)&#10;    at processTicksAndRejections (node:internal/process/task_queues:105:5)&#10;    at AndroidUiautomator2Driver.findElOrElsWithProcessing (/opt/homebrew/lib/node_modules/appium/node_modules/@appium/base-driver/lib/basedriver/commands/find.ts:60:12)&#10;    at AndroidUiautomator2Driver.findElement (/opt/homebrew/lib/node_modules/appium/node_modules/@appium/base-driver/lib/basedriver/commands/find.ts:75:12)">
+<![CDATA[Traceback:
+  File "/Users/marco/Documents/dev/N26/Marco-Deidda/e2e-android-app-test/venv/lib/python3.13/site-packages/behave/runner.py", line 545, in run_hook
+    self.hooks[name](context, *args)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "features/environment.py", line 46, in before_scenario
+    bypass_user_tutorial(context)
+    ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/Users/marco/Documents/dev/N26/Marco-Deidda/e2e-android-app-test/utils/helpers.py", line 60, in bypass_user_tutorial
+    click_pop_up_tutorial = WebDriverWait(context.driver, 10).until(
+        EC.presence_of_element_located((AppiumBy.ANDROID_UIAUTOMATOR,
+            'new UiSelector().className("android.widget.FrameLayout").instance(10)'))
+    )
+  File "/Users/marco/Documents/dev/N26/Marco-Deidda/e2e-android-app-test/venv/lib/python3.13/site-packages/selenium/webdriver/support/wait.py", line 105, in until
+    raise TimeoutException(message, screen, stacktrace)
+]]>
+</error><system-out>
+<![CDATA[
+@scenario.begin
+  Scenario: The user should be able to add an income
+    Given the balance is empty ... untested in 0.000s
+    When the user navigates to the income screen ... untested in 0.000s
+    When the user enters the amount of "100" ... untested in 0.000s
+    And the user chooses an income category "salary" ... untested in 0.000s
+    Then the total balance should be "100" ... untested in 0.000s
+    And the total income balance should be "100" ... untested in 0.000s
+
+@scenario.end
+--------------------------------------------------------------------------------
+]]>
+</system-out></testcase><testcase classname="transaction.transaction" name="The user adds a single expense" status="passed" time="15.641497"><system-out>
+<![CDATA[
+@scenario.begin
+  Scenario: The user adds a single expense
+    Given the balance is empty ... passed in 0.956s
+    Given the user has a positive balance of "250" ... passed in 6.668s
+    When the user navigates to the expense screen ... passed in 1.417s
+    And the user enters the amount of "50" ... passed in 2.238s
+    And the user chooses an expense category "clothes" ... passed in 2.715s
+    Then the total balance should be "200" ... passed in 0.675s
+    And the total expense balance should be "50" ... passed in 0.972s
+
+@scenario.end
+--------------------------------------------------------------------------------
+
+Captured stdout:
+enter_amount - Amount value: 250, Type: <class 'str'>
+Clicked button: 2
+Clicked button: 5
+Clicked button: 0
+enter_amount - Amount value: 50, Type: <class 'str'>
+Clicked button: 5
+Clicked button: 0
+
+]]>
+</system-out></testcase><testcase classname="transaction.transaction" name="Verify expense totals by category" status="passed" time="23.763641"><system-out>
+<![CDATA[
+@scenario.begin
+  Scenario: Verify expense totals by category
+    Given the balance is empty ... passed in 0.959s
+    Given the user has a positive balance of "500" ... passed in 7.063s
+    When the user adds the following expenses ... passed in 12.200s
+      | category      | amount |
+      | entertainment | 50     |
+      | house         | 25     |
+    Then the total balance should be "425" ... passed in 0.760s
+    When the user opens the transaction history ... passed in 1.008s
+    Then the transaction history should include the following transactions ... passed in 1.775s
+      | category      | total |
+      | entertainment | 50    |
+      | house         | 25    |
+
+@scenario.end
+--------------------------------------------------------------------------------
+
+Captured stdout:
+enter_amount - Amount value: 500, Type: <class 'str'>
+Clicked button: 5
+Clicked button: 0
+Clicked button: 0
+enter_amount - Amount value: 50, Type: <class 'str'>
+Clicked button: 5
+Clicked button: 0
+enter_amount - Amount value: 25, Type: <class 'str'>
+Clicked button: 2
+Clicked button: 5
+Transaction found: Entertainment - $50.00
+Transaction found: House - $25.00
+
+]]>
+</system-out></testcase></testsuite>

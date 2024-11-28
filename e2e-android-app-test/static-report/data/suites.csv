@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","45819","Verify expense totals by category","","Thu Nov 28 17:20:35 CET 2024","passed","Thu Nov 28 17:21:21 CET 2024","","","",""
+"","28772","The user should be able to add an income","","Thu Nov 28 17:19:28 CET 2024","passed","Thu Nov 28 17:19:57 CET 2024","","","",""
+"","38030","The user adds a single expense","","Thu Nov 28 17:19:57 CET 2024","passed","Thu Nov 28 17:20:35 CET 2024","","","",""

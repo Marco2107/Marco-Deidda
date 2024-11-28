@@ -13,9 +13,13 @@ Before starting, ensure the following tools are installed and configured:
 - **Node.js**: [Download here](https://nodejs.org/).
 - **Poetry**: Dependency manager for Python: [Install Poetry](https://python-poetry.org/docs/#installation).
 - **Appium**: Install the Appium server globally:
-    npm install -g appium
+```
+npm install -g appium
+```
 -**Appium Doctor**: Verify your setup with Appium Doctor:
+```
 npm install -g appium-doctor
+```
 ### **2. Android SDK**
 1. Download and install Android Studio: https://developer.android.com/studio.
 2. Configure environment variables:
@@ -23,31 +27,39 @@ npm install -g appium-doctor
         - Default on Windows: C:\Users\<your_username>\AppData\Local\Android\Sdk.
         - Default on macOS/Linux: ~/Library/Android/sdk.
     - Add the following paths to PATH:
+       ```
         $ANDROID_HOME/platform-tools
         $ANDROID_HOME/emulator
+       ```
 3. Ensure ADB is properly configured:
     adb devices
     If an emulator or device is detected, you'll see output like this:
+    ```
     List of devices attached
     emulator-5554   device
+    ```
 ### **3. Java JDK**
 1. Install Java Development Kit (JDK) version 8 or higher: https://openjdk.org/.
 2. Configure the JAVA_HOME environment variable:
     - On Windows: Path to C:\Program Files\Java\<version>
     - On macOS/Linux: Path to /usr/libexec/java_home
 3. Verify the installation:
+    ```
     java -version
+    ```
 ## **Setup**
 1. Clone the Project
-2. 
+
 Clone this repository to your local machine:
 
     git clone git@github.com:Marco2107/Marco-Deidda.git
     cd monefy-test-automation
 4. Install Dependencies
 Install dependencies using Poetry:
+    ```
     poetry install
-5. Configure the config.json File
+    ```
+6. Configure the config.json File
 The config.json file contains the Desired Capabilities required to run the tests. Ensure the file is structured like this:
 ```json
 {
@@ -85,7 +97,7 @@ Running the Tests
     appium-doctor --android
 - Emulator not detected: Ensure the emulator is running and Android platform tools are properly configured.
 
-## **Approach and Tech Stack
+## **Approach and Tech Stack**
 **Approach:**
 
 The framework is built with a focus on simplicity, reusability, and scalability. I adopted the Behavior-Driven Development (BDD) methodology using Gherkin syntax to align testing with user behavior and improve collaboration. The Page Object Model (POM) was implemented to separate UI interactions from test logic, ensuring clean and maintainable test scripts.
@@ -103,3 +115,32 @@ The framework is built with a focus on simplicity, reusability, and scalability.
 **Page Object Model (POM):** Improves maintainability and test reliability by encapsulating UI interactions in dedicated classes.
 
 These tools were chosen not only for their technical strengths but also for their popularity, strong community support, and availability of solid resources. This ensures efficient, scalable, and maintainable end-to-end testing for the Monefy Android application.
+
+## **Test report**
+1. **JUnit Test Report**
+
+A JUnit-compatible test report is available at the following location:
+```
+reports/junit-results/TESTS-transaction.xml
+```
+
+2. **Generating an Allure Report**
+
+1-Install Allure Command-line Tool Ensure that Allure is installed on your system. Use the following commands:
+```
+brew install allure   # For macOS with Homebrew
+```
+
+2-Run Tests with Allure Data Collection Execute the tests with the --alluredir option to generate Allure results:
+```
+behave -f allure_behave.formatter:AllureFormatter -o reports/allure-results
+```
+
+3-Serve the Allure Report Generate and serve the Allure report locally:
+```
+allure serve reports/allure-results
+```
+
+This will open a detailed interactive report in your default browser.
+   
+

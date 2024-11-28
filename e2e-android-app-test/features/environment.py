@@ -2,17 +2,18 @@ from appium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.appiumby import AppiumBy
-from utils.helpers import skip_onboarding
+from utils.helpers import skip_onboarding, bypass_user_tutorial
 from pages.main import MainPage
 from pages.transaction import TransactionPage
+from pages.settings import SettingsPage
+from pages.transaction_history import TransactionHistory
 
 
 def before_scenario(context, scenario):
     """
-    Hook executed before each scenario.  
-    Initializes the Appium driver and launches the application.
+    Perform a full reset of the app before each feature.
     """
-    print(f"Setting up for scenario: {scenario.name}")
+    print(f"Resetting app state for feature: {scenario.name}")
 
     desired_caps = {
         "platformName": "Android",
@@ -20,6 +21,7 @@ def before_scenario(context, scenario):
         "automationName": "UiAutomator2",
         "app": "./apps/monefy.apk",
         "appWaitActivity": "com.monefy.activities.onboarding.OnboardingActivity_",
+        "newCommandTimeout": 300,
         "platformVersion": "15.0",
         "noReset": False,
         "fullReset": False
@@ -30,6 +32,8 @@ def before_scenario(context, scenario):
         context.driver = webdriver.Remote("http://127.0.0.1:4723", desired_caps)
         context.main_page = MainPage(context.driver)
         context.transaction_page = TransactionPage(context.driver)
+        context.settings_page = SettingsPage(context.driver)
+        context.transaction_history_page = TransactionHistory(context.driver)
         print("App launched successfully")
 
         #Wait for a key element to confirm the app is fully started
@@ -41,9 +45,14 @@ def before_scenario(context, scenario):
 
         skip_onboarding(context)
 
-        #close the special offer page
-        button_close_special_offer = context.driver.find_element(AppiumBy.ID, "com.monefy.app.lite:id/buttonClose")
+        # Handle special offer
+        button_close_special_offer = WebDriverWait(context.driver, 30).until(
+            EC.presence_of_element_located((AppiumBy.ID, "com.monefy.app.lite:id/buttonClose"))
+        )
         button_close_special_offer.click()
+        print("Special offer closed")
+
+        bypass_user_tutorial(context)
 
     except Exception as e:
         # Capture the exception and print a user-friendly error message

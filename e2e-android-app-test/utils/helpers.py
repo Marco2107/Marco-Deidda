@@ -4,7 +4,6 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
 import re
 
-
 def skip_onboarding(context):
          while True:
             try:
@@ -14,7 +13,6 @@ def skip_onboarding(context):
                 )
                 continue_button.click()
             except StaleElementReferenceException:
-                print("Retrying to locate the 'Continue' button due to stale reference.")
                 continue
             except Exception:
                 # If the button was not found check if the onboarding is finished
@@ -44,8 +42,25 @@ def format_amount(amount):
         return f"${amount}"
     return f"${amount}.00"
 
-    # Extract the numerical value A REFACTO
-    extracted_value = re.search(r"\$\s?([\d.,]+)", amount)
-    extracted_value = extracted_value.group(1) if extracted_value else None
+def bypass_user_tutorial(context):
+    """
+    skip the user tutorial
+    """
+    try:
+        for i in range(4):
+            try:
+                click_pop_up_tutorial = WebDriverWait(context.driver, 10).until(
+                    EC.presence_of_element_located((AppiumBy.ANDROID_UIAUTOMATOR,
+                        'new UiSelector().className("android.widget.FrameLayout").instance(10)'))
+                )
+                click_pop_up_tutorial.click()
+            except Exception:
+                print(f"error while clicking on the pop up")
+                raise
+        
+        context.settings_page.click_settings_menu()
+    except Exception as e:
+        print(f"Error while skipping the user tutorial: {e}")
+        raise
 
-    return extracted_value
+    print("user tutorial skipped")

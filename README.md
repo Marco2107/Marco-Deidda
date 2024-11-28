@@ -142,5 +142,22 @@ allure serve reports/allure-results
 ```
 
 This will open a detailed interactive report in your default browser.
-   
+
+As show below:
+
+<img width="1413" alt="allure-1" src="https://github.com/user-attachments/assets/d5428313-a0e4-4eb0-91db-2191c8408341">
+
+<img width="1420" alt="allure-21" src="https://github.com/user-attachments/assets/828f8654-cb2d-4c48-a4a5-25743b38d5e5">
+
+<img width="1430" alt="allure-2" src="https://github.com/user-attachments/assets/02b254c6-883c-4f0b-b802-473d4a73d601">
+
+<img width="1426" alt="allure-4" src="https://github.com/user-attachments/assets/05643a00-ec60-4d8f-bdc5-ce3a0b716bab">
+
+
+
+
+
+
+
+
 

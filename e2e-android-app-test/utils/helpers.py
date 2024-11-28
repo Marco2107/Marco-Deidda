@@ -2,29 +2,37 @@ from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import StaleElementReferenceException
+import json
 import re
 
+def load_config():
+    """
+    Load the config.json for the desired capabilities
+    """
+    with open('config.json', 'r') as config_file:
+        return json.load(config_file)
+
 def skip_onboarding(context):
-         while True:
+    while True:
+        try:
+            #Check if the button "Continue" is present and clickable
+            continue_button = WebDriverWait(context.driver, 5).until(
+                EC.element_to_be_clickable((AppiumBy.ID, "com.monefy.app.lite:id/buttonContinue"))
+            )
+            continue_button.click()
+        except StaleElementReferenceException:
+            continue
+        except Exception:
+            # If the button was not found check if the onboarding is finished
             try:
-                #Check if the button "Continue" is present and clickable
-                continue_button = WebDriverWait(context.driver, 5).until(
-                    EC.element_to_be_clickable((AppiumBy.ID, "com.monefy.app.lite:id/buttonContinue"))
+                WebDriverWait(context.driver, 3).until(
+                    EC.presence_of_element_located((AppiumBy.ID, "com.monefy.app.lite:id/textViewLayover"))
                 )
-                continue_button.click()
-            except StaleElementReferenceException:
-                continue
-            except Exception:
-                # If the button was not found check if the onboarding is finished
-                try:
-                    WebDriverWait(context.driver, 3).until(
-                        EC.presence_of_element_located((AppiumBy.ID, "com.monefy.app.lite:id/textViewLayover"))
-                    )
-                    print("Onboarding completed.")
-                    break
-                except Exception as e:
-                    print(f"Failed to confirm onboarding completion: {e}")
-                    raise
+                print("Onboarding completed.")
+                break
+            except Exception as e:
+                print(f"Failed to confirm onboarding completion: {e}")
+                raise
 
 def extract_value(amount):
     """

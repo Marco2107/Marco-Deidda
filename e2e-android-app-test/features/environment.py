@@ -2,7 +2,7 @@ from appium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.appiumby import AppiumBy
-from utils.helpers import skip_onboarding, bypass_user_tutorial
+from utils.helpers import skip_onboarding, bypass_user_tutorial, load_config
 from pages.main import MainPage
 from pages.transaction import TransactionPage
 from pages.settings import SettingsPage
@@ -15,21 +15,12 @@ def before_scenario(context, scenario):
     """
     print(f"Resetting app state for feature: {scenario.name}")
 
-    desired_caps = {
-        "platformName": "Android",
-        "deviceName": "emulator-5554",
-        "automationName": "UiAutomator2",
-        "app": "./apps/monefy.apk",
-        "appWaitActivity": "com.monefy.activities.onboarding.OnboardingActivity_",
-        "newCommandTimeout": 300,
-        "platformVersion": "15.0",
-        "noReset": False,
-        "fullReset": False
-    }
+    #Load the desired capabilities
+    config = load_config()
 
     # Initialize the driver
     try:
-        context.driver = webdriver.Remote("http://127.0.0.1:4723", desired_caps)
+        context.driver = webdriver.Remote("http://127.0.0.1:4723", config)
         context.main_page = MainPage(context.driver)
         context.transaction_page = TransactionPage(context.driver)
         context.settings_page = SettingsPage(context.driver)

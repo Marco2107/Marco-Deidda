@@ -1,0 +1,12 @@
+
+{
+    "platformName": "Android",
+    "deviceName": "emulator-5554",
+    "automationName": "UiAutomator2",
+    "app": "./apps/monefy.apk",
+    "appWaitActivity": "com.monefy.activities.onboarding.OnboardingActivity_",
+    "newCommandTimeout": 300,
+    "platformVersion": "15.0",
+    "noReset": false,
+    "fullReset": false
+}
